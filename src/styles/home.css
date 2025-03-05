@@ -1,0 +1,13 @@
+/* Elements specific to the index page */
+img{
+    max-width: 75%;
+    display: block;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.first-line::first-line {
+    color: gold;
+    font-variant: small-caps;
+}

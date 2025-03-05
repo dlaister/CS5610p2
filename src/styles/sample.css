@@ -1,0 +1,97 @@
+/* Elements specific to the sample game page */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Examples container */
+.main-container{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-row-gap: 10px;
+}
+
+/* Outer game container */
+.container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    width: auto;
+    /* Not able to fix grid gap without this */
+    max-width: 560px;
+    padding: 20px;
+    border: 2px solid red;
+    border-radius: 8px;
+}
+
+/* Game board */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(11, 50px);
+    grid-template-rows: repeat(12, 50px);
+    gap: 1px;
+    /* Used to debug grid box overflow */
+    background-color: #fd7390;
+}
+
+/* X Axis (Horizon)*/
+.header {
+    background-color: #424242;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+/* Y Axis (Portrait) */
+.row-header {
+    background-color: #424242;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.cell {
+    background-color: lightskyblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+    transition: background-color 0.3s ease;
+}
+
+/* handle hover effect */
+.cell:hover {
+    background-color: orange;
+    cursor: pointer;
+}
+
+.hit {
+    background-color: lightgreen;
+}
+
+.miss {
+    background-color: lightcoral;
+}
+
+.restart-button {
+    padding: 10px 20px;
+    margin: 10px 0;
+    background-color: darkgray;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.restart-button:hover {
+    background-color: blue;
+}
+
+.ship {
+    background-color: darkgray;
+}
