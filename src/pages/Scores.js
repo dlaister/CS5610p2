@@ -1,25 +1,17 @@
 import Navbar from '../components/Navbar';
-import { Scores } from '../components/Helmet';
-import '../styles/navbar.css';
+import '../styles/global.css';
 import '../styles/scores.css';
 import Footer from '../components/Footer';
+
 
 function Scores() {
     return (
         <div className="scores">
-            <Navbar/>
-
-            <div>
-                <Scores>
-                    <title>Scores</title>
-                    <meta charSet="utf-8" />
-                </Scores>
-                <h1>Battleship Scores</h1>
-            </div>
+            <Navbar />
 
             <main>
                 <header>
-                    <h1>Battleship Scores</h1>
+                    <h2>Battleship Player Statistics</h2>
                 </header>
 
                 <div className="container">
@@ -106,7 +98,7 @@ function Scores() {
                 </div>
             </main>
 
-            <Footer/>
+            <Footer />
         </div>
     );
 }

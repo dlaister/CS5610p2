@@ -1,25 +1,17 @@
 import Navbar from '../components/Navbar';
-import { Sample } from '../components/Helmet';
-import '../styles/navbar.css';
+import '../styles/global.css';
 import '../styles/sample.css';
 import Footer from '../components/Footer';
+
 
 function Sample() {
     return (
         <div className="sample">
-            <Navbar/>
-
-            <div>
-                <Sample>
-                    <title>Sample</title>
-                    <meta charSet="utf-8" />
-                </Sample>
-                <h1>Battleship Sample Game</h1>
-            </div>
+            <Navbar />
 
             <main>
                 <header>
-                    <h1>Battleship Sample Game</h1>
+                    <h2>Battleship Sample Game</h2>
                 </header>
 
                 <h3>
@@ -85,7 +77,7 @@ function Sample() {
                 </div>
             </main>
 
-            <Footer/>
+            <Footer />
         </div>
     );
 }

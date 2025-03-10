@@ -8,6 +8,6 @@ img{
 }
 
 .first-line::first-line {
-    color: gold;
+    color: #fbd721;
     font-variant: small-caps;
 }
