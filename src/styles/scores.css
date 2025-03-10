@@ -1,8 +1,7 @@
 /* Elements specific to the high_scores page */
 .container {
     display: grid;
-    grid-template-areas:
-        "playerNames lowScores highScores";
+    grid-template-areas: "playerNames lowScores highScores";
     grid-template-columns: 4fr 1fr 1fr;
     gap: 1px;
     background-color: black;
@@ -11,6 +10,7 @@
 
 /* Grid div elements */
 .container > div {
+    box-sizing: border-box;
     background-color: darkgray;
     padding: 10px;
     border: 1px solid red;
