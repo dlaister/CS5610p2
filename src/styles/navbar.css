@@ -36,11 +36,10 @@
     transform: scale(1.1);
 }
 
-/* TODO - Determine why this does not work*/
-.navbar .active-page{
+.active-page{
     background-color: black;
 }
 
 body {
-    padding-top: 15px;
+    padding-top: 20px;
 }
