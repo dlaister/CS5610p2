@@ -1,10 +1,19 @@
 .footer {
-    text-align: center;
-    padding: 10px;
-    background-color: red;
-    color: white;
+    /* TODO -- figure out the double footer if not fixed and the width not being 100% of the viewport */
     position: fixed;
     bottom: 0;
-    width: 100%;
+    left: 0;
+    right: 0;
+    width: 100%; /* Ensures it spans the full width */
+    text-align: center;
+    padding: 3px;
+    background-color: red;
+    color: white;
     z-index: 100;
+}
+
+.home {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }

@@ -11,8 +11,13 @@ function Rules() {
 
             <main>
                 <header>
+                    <h1>Battleship Rules</h1>
+                </header>
+
+                <header>
                     <h2>The Game of Battleship:</h2>
                 </header>
+
                 <div>
                     <p>Battleship is a classic two-player game of naval strategy where players attempt to sink each other's fleet of ships. Here are the basic rules for playing Battleship:</p>
 

@@ -11,7 +11,7 @@ function Scores() {
 
             <main>
                 <header>
-                    <h2>Battleship Player Statistics</h2>
+                    <h1>Battleship Scores</h1>
                 </header>
 
                 <div className="container">

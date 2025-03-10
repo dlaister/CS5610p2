@@ -35,7 +35,7 @@ function Home() {
                     alt="Battle Ship"/>
             </main>
 
-            <Footer/> {/* Include Footer here */}
+            <Footer/>
         </div>
     );
 }
