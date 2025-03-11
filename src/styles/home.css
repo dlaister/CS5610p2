@@ -6,8 +6,3 @@ img{
     margin-left: auto;
     margin-right: auto;
 }
-
-.first-line::first-line {
-    color: #fbd721;
-    font-variant: small-caps;
-}
