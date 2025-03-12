@@ -4,30 +4,37 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Center vertically */
-    min-height: 100vh; /* Ensure body takes full height */
     margin: 0;
 }
 
 /* Main container using grid layout */
 .main-container {
     display: grid;
-    grid-template-columns: 1fr; /* Single column */
-    grid-template-rows: auto 1fr; /* First row for the text-box, second for the grid */
-    gap: 10px; /* Space between text-box and grid */
+    grid-template-columns: 1fr; /* One column layout */
+    gap: 50px;
     width: 100%;
-    max-width: 560px; /* Constrain max width */
+    height: 100%;
+
+    /* TODO -- figure out why this is not conforming */
+    max-width: 700px; /* Constrain max width */
+
     padding: 20px;
     border: 2px solid red;
     border-radius: 8px;
-    align-items: center; /* Center both elements horizontally */
+}
+
+/* Container using flexbox layout */
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Text-box */
 .text-box {
-    width: 100%; /* Make the text-box take full width */
+    width: 100%;
     text-align: center;
-    grid-row: 1; /* Place in the first row */
+    grid-row: 1;
 }
 
 /* Grid container */
@@ -37,8 +44,8 @@ body {
     grid-template-rows: repeat(12, 50px);
     gap: 1px;
     background-color: #fd7390;
-    grid-row: 2; /* Place in the second row */
-    margin-top: 10px;  /* Space between text-box and grid */
+    grid-row: 2;
+    /*margin-top: 10px;  !* Space between text-box and grid *!*/
 }
 
 /* Header (X Axis) */
@@ -84,4 +91,18 @@ body {
 
 .miss {
     background-color: lightcoral;
+}
+
+.restart-button {
+    padding: 10px 20px;
+    margin: 10px 0;
+    background-color: darkgray;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.ship {
+    background-color: darkgray;
 }

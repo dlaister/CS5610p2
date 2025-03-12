@@ -1,5 +1,4 @@
 import Navbar from '../components/Navbar';
-import '../styles/global.css';
 import '../styles/sample.css';
 import Footer from '../components/Footer';
 
@@ -229,121 +228,121 @@ function Sample() {
                             <div className="cell"></div>
 
                             {/* Row 2 */}
-                            <div class="row-header">2</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell ship">0</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
+                            <div className="row-header">2</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell ship">0</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
 
                             {/* Row 3 */}
-                            <div class="row-header">3</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell ship">0</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
+                            <div className="row-header">3</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell ship">0</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
 
                             {/* Row 4 */}
-                            <div class="row-header">4</div>
-                            <div class="cell"></div>
-                            <div class="cell miss">X</div>
-                            <div class="cell miss">X</div>
-                            <div class="cell ship">0</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell ship">0</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
+                            <div className="row-header">4</div>
+                            <div className="cell"></div>
+                            <div className="cell miss">X</div>
+                            <div className="cell miss">X</div>
+                            <div className="cell ship">0</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell ship">0</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
 
                             {/* Row 5 */}
-                            <div class="row-header">5</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell ship">0</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
+                            <div className="row-header">5</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell ship">0</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
 
                             {/* Row 6 */}
-                            <div class="row-header">6</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell ship">0</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
+                            <div className="row-header">6</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell ship">0</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
 
                             {/* Row 7 */}
-                            <div class="row-header">7</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell ship">0</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
+                            <div className="row-header">7</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell ship">0</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
 
                             {/* Row 8 */}
-                            <div class="row-header">8</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell ship">0</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
+                            <div className="row-header">8</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell ship">0</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
 
                             {/* Row 9 */}
-                            <div class="row-header">9</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell ship">0</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
+                            <div className="row-header">9</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell ship">0</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
 
                             {/* Row 10 */}
-                            <div class="row-header">10</div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell"></div>
-                            <div class="cell ship">0</div>
-                            <div class="cell miss">X</div>
+                            <div className="row-header">10</div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell"></div>
+                            <div className="cell ship">0</div>
+                            <div className="cell miss">X</div>
                         </div>
                     </div>
                 </div>

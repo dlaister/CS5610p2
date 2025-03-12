@@ -1,4 +1,4 @@
-/* Common elements including the navbar and page sizing effect (mobile application) */
+/* Common elements including sizing effect (mobile application) */
 main{
     padding: 50px;
 }
@@ -20,16 +20,6 @@ body{
 
 p{
     font-family: "Avenir Next Condensed", cursive;
-}
-
-footer{
-    text-align: center;
-    padding: 3px;
-    background-color: red;
-    color: white;
-    bottom: 0;
-    width: 100%;
-    z-index: 100;
 }
 
 .italics{
