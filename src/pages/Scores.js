@@ -9,7 +9,7 @@ function Scores() {
         <div className="scores">
             <Navbar />
 
-            <main>
+            <main className="main">
                 <header>
                     <h1>Battleship Scores</h1>
                 </header>

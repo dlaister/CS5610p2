@@ -3,6 +3,10 @@ main{
     padding: 50px;
 }
 
+.main {
+    padding-bottom: 100px;
+}
+
 h1{
     text-align: center;
     font-family: "Myanmar MN", cursive;

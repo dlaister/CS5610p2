@@ -1,4 +1,5 @@
 import Navbar from '../components/Navbar';
+import '../styles/global.css';
 import '../styles/sample.css';
 import Footer from '../components/Footer';
 
@@ -7,7 +8,7 @@ function Sample() {
         <div className="sample">
             <Navbar />
 
-            <main>
+            <main className="main">
                 <header>
                     <h1>Battleship Sample Game</h1>
                 </header>

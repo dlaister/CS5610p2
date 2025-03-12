@@ -9,7 +9,7 @@ function Rules() {
         <div className="rules">
             <Navbar />
 
-            <main>
+            <main className="main">
                 <header>
                     <h1>Battleship Rules</h1>
                 </header>
@@ -92,21 +92,21 @@ function Rules() {
                         <li>Battleship is a game of strategic thinking, careful planning, and a bit of luck. By following these rules and developing your own strategies, you can enjoy countless hours of naval warfare fun.</li>
                     </ul>
                 </div>
-            </main>
 
-            <div className="center-box">
-                <div className="content-box">
-                    <h2>About the Author</h2>
-                    <p>This game is the property of Hasbro, Inc. This is a project purely for demonstration purposes in which to build a website.</p>
-                    <p>My name is Derek, and this site is made by me.</p>
-                    <ul>
-                        <li><a href="https://github.com/dlaister">Github</a></li>
-                        <li><a href="mailto:someone@example.com">Email</a></li>
-                        <li><a href="https://linkedin.com/dereklaister">LinkedIn</a></li>
-                    </ul>
+                <div className="center-box">
+                    <div className="content-box">
+                        <h2>About the Author</h2>
+                        <p>This game is the property of Hasbro, Inc. This is a project purely for demonstration purposes in which to build a website.</p>
+                        <p>My name is Derek, and this site is made by me.</p>
+                        <ul>
+                            <li><a href="https://github.com/dlaister">Github</a></li>
+                            <li><a href="mailto:someone@example.com">Email</a></li>
+                            <li><a href="https://linkedin.com/dereklaister">LinkedIn</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-
+            </main>
+            
             <Footer />
         </div>
     );

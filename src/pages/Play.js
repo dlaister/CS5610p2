@@ -78,7 +78,8 @@ function Play() {
     return (
         <div className="play">
             <Navbar />
-            <main>
+
+            <main className="main">
                 <header>
                     <h1>Battleship Sample Game</h1>
                 </header>

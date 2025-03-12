@@ -11,7 +11,7 @@ function Home() {
         <div className="home">
             <Navbar/>
 
-            <main>
+            <main className="main">
                 <header>
                     <h1>Battleship Home</h1>
                 </header>
