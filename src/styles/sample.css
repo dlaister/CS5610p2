@@ -4,38 +4,44 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center; /* Center vertically */
+    min-height: 100vh; /* Ensure body takes full height */
+    margin: 0;
 }
 
-/* Examples container */
-.main-container{
+/* Main container using grid layout */
+.main-container {
     display: grid;
-    grid-template-rows: auto 1fr;
-    grid-row-gap: 10px;
-}
-
-/* Outer game container */
-.container {
-    display: grid;
-    grid-template-rows: auto 1fr;
-    width: auto;
-    /* Not able to fix grid gap without this */
-    max-width: 560px;
+    grid-template-columns: 1fr; /* Single column */
+    grid-template-rows: auto 1fr; /* First row for the text-box, second for the grid */
+    gap: 10px; /* Space between text-box and grid */
+    width: 100%;
+    max-width: 560px; /* Constrain max width */
     padding: 20px;
     border: 2px solid red;
     border-radius: 8px;
+    align-items: center; /* Center both elements horizontally */
 }
 
-/* Game board */
+/* Text-box */
+.text-box {
+    width: 100%; /* Make the text-box take full width */
+    text-align: center;
+    grid-row: 1; /* Place in the first row */
+}
+
+/* Grid container */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(11, 50px);
     grid-template-rows: repeat(12, 50px);
     gap: 1px;
-    /* Used to debug grid box overflow */
     background-color: #fd7390;
+    grid-row: 2; /* Place in the second row */
+    margin-top: 10px;  /* Space between text-box and grid */
 }
 
-/* X Axis (Horizon)*/
+/* Header (X Axis) */
 .header {
     background-color: #424242;
     color: white;
@@ -45,7 +51,7 @@ body {
     font-weight: bold;
 }
 
-/* Y Axis (Portrait) */
+/* Row Header (Y Axis) */
 .row-header {
     background-color: #424242;
     color: white;
@@ -55,6 +61,7 @@ body {
     font-weight: bold;
 }
 
+/* Cells */
 .cell {
     background-color: lightskyblue;
     display: flex;
@@ -64,34 +71,17 @@ body {
     transition: background-color 0.3s ease;
 }
 
-/* handle hover effect */
+/* Hover effect */
 .cell:hover {
     background-color: orange;
     cursor: pointer;
 }
 
+/* Hit and miss styling */
 .hit {
     background-color: lightgreen;
 }
 
 .miss {
     background-color: lightcoral;
-}
-
-.restart-button {
-    padding: 10px 20px;
-    margin: 10px 0;
-    background-color: darkgray;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.restart-button:hover {
-    background-color: blue;
-}
-
-.ship {
-    background-color: darkgray;
 }

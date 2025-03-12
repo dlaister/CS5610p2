@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import '../styles/global.css';
 import '../styles/sample.css';
-import '../styles/play.css';
 import Footer from '../components/Footer';
 
 function Play() {
@@ -11,35 +10,54 @@ function Play() {
 
     // Ship state: Array of ships (example ships with random positions for now)
     const [ships, setShips] = useState([
-        { id: '5x1', size: 5, placed: false, positions: [] },
-        { id: '4x1', size: 4, placed: false, positions: [] },
-        { id: '3x1', size: 3, placed: false, positions: [] },
-        { id: '3x1', size: 3, placed: false, positions: [] },
-        { id: '2x1', size: 2, placed: false, positions: [] },
+        { id: 'Carrier', size: 5, placed: false, positions: [] },
+        { id: 'Battleship', size: 4, placed: false, positions: [] },
+        { id: 'Cruiser', size: 3, placed: false, positions: [] },
+        { id: 'Submarine', size: 3, placed: false, positions: [] },
+        { id: 'Destroyer', size: 2, placed: false, positions: [] },
     ]);
+
 
     // Handle drag start event to track which ship is being dragged
     const handleDragStart = (e, ship) => {
-        e.dataTransfer.setData('ship', JSON.stringify(ship));  // Store the ship being dragged
+        if (ship.placed) {
+            e.preventDefault();
+        } else {
+            e.dataTransfer.setData('ship', JSON.stringify(ship));
+            e.target.style.opacity = '0.5'; // Makes it clear that the ship is being dragged
+        }
     };
+
+    const handleDragEnd = (e) => {
+        e.target.style.opacity = '1'; // Restore opacity after dragging
+    };
+
 
     // Handle drop event to place the ship on the board
     const handleDrop = (e, index) => {
+        e.preventDefault();
         const ship = JSON.parse(e.dataTransfer.getData('ship'));
+
+        if (ship.placed) return;  // Ship already placed? Don't place again
+
         const newBoard = [...board];
+        const newShipPositions = getShipPositions(index, ship.size);
 
-        // Check if the placement is valid (add your logic here for overlap, bounds)
-        const newShipPositions = getShipPositions(index, ship.size);  // You'll define getShipPositions
+        if (!newShipPositions) return;  // Prevent invalid placement
 
-        // If valid, place the ship
-        if (newShipPositions) {
-            ship.placed = true;
-            ship.positions = newShipPositions;
-            setShips([...ships]); // Update ships state
-            // Mark positions on the board
-            newShipPositions.forEach(pos => newBoard[pos] = ship.id);
-            setBoard(newBoard); // Update board state
+        // Make sure no overlap
+        if (newShipPositions.some(pos => newBoard[pos] !== null)) {
+            alert("Ships cannot overlap!");
+            return;
         }
+
+        // Place ship
+        ship.placed = true;
+        ship.positions = newShipPositions;
+        setShips([...ships]);
+
+        newShipPositions.forEach(pos => newBoard[pos] = ship.id);
+        setBoard(newBoard);
     };
 
     // Helper function to calculate the positions of a ship based on start cell and size
@@ -76,12 +94,15 @@ function Play() {
                     {ships.map((ship) => (
                         <div
                             key={ship.id}
+                            id={ship.id}
                             className="ship"
-                            draggable="true"
+                            draggable={!ship.placed}
                             onDragStart={(e) => handleDragStart(e, ship)}
+                            onDragEnd={handleDragEnd}
                         >
                             {ship.id}
                         </div>
+
                     ))}
                 </div>
 
@@ -98,6 +119,7 @@ function Play() {
                         </div>
                     ))}
                 </div>
+
             </main>
             <Footer />
         </div>

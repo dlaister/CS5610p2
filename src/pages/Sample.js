@@ -151,6 +151,7 @@ function Sample() {
                             <div className="cell"></div>
                             <div className="cell"></div>
                             <div className="cell"></div>
+                            <div className="cell"></div>
 
                             {/* Row 9 */}
                             <div className="row-header">9</div>
@@ -163,9 +164,12 @@ function Sample() {
                             <div className="cell"></div>
                             <div className="cell"></div>
                             <div className="cell"></div>
+                            <div className="cell miss">X</div>
+
 
                             {/* Row 10 */}
                             <div className="row-header">10</div>
+                            <div className="cell"></div>
                             <div className="cell"></div>
                             <div className="cell"></div>
                             <div className="cell"></div>

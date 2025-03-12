@@ -23,44 +23,49 @@
 
 .available-ships {
     display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin-top: 20px;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    border: 2px dashed gray;
+    margin-bottom: 15px; /* Adds spacing between available ships and the board */
+    width: fit-content;
 }
 
 .ship {
-    width: 60px;
-    height: 30px;
-    border: 1px solid #000;
+    width: 50px;
+    height: 25px;
+    background-color: gray;
+    border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
-    margin: 5px;
-    background-color: #f2f2f2;
+    cursor: grab;
+    border-radius: 5px;
+}
+
+.ship:active {
+    cursor: grabbing;
 }
 
 .player-board {
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
-    width: 300px;
-    height: 300px;
-    margin-top: 20px;
-    border: 2px solid #000;
+    grid-template-columns: repeat(10, 40px);
+    grid-template-rows: repeat(10, 40px);
+    gap: 2px;
+    border: 2px solid black;
+    margin: 0 auto; /* Ensures centering */
 }
 
 .board-cell {
-    border: 1px solid #ccc;
+    width: 40px;
+    height: 40px;
+    background-color: lightblue;
+    border: 1px solid black;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
 .board-cell.occupied {
-    background-color: lightblue;
-}
-
-.player-board div {
-    border: 1px solid #ccc;
+    background-color: darkgray !important; /* Makes occupied cells visible */
 }
