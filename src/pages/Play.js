@@ -1,30 +1,46 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import '../styles/global.css';
-import '../styles/sample.css';
+import '../styles/play.css';
 import Footer from '../components/Footer';
 
 function Play() {
-    // Board state: 10x10 grid (null represents empty)
-    const [board, setBoard] = useState(Array(100).fill(null));
+    const BOARD_SIZE = 10;
 
-    // Ship state: Array of ships (example ships with random positions for now)
+    // Board state (10x10 grid represented as a 1D array)
+    const [board, setBoard] = useState(Array(100).fill(null));
+    const [enemyBoard, setEnemyBoard] = useState(Array(100).fill(null));
+
+    // Ship state
     const [ships, setShips] = useState([
-        { id: 'Carrier', size: 5, placed: false, positions: [] },
-        { id: 'Battleship', size: 4, placed: false, positions: [] },
-        { id: 'Cruiser', size: 3, placed: false, positions: [] },
-        { id: 'Submarine', size: 3, placed: false, positions: [] },
-        { id: 'Destroyer', size: 2, placed: false, positions: [] },
+        { id: 'Carrier 5x1', size: 5, placed: false, positions: [] },
+        { id: 'Battleship 4x1', size: 4, placed: false, positions: [] },
+        { id: 'Cruiser 3x1', size: 3, placed: false, positions: [] },
+        { id: 'Submarine 3x1', size: 3, placed: false, positions: [] },
+        { id: 'Destroyer 2x1', size: 2, placed: false, positions: [] },
     ]);
 
+    // Game state
+    const [gameStarted, setGameStarted] = useState(false);
+    const [gameOver, setGameOver] = useState(false);
+    const [timer, setTimer] = useState(0);
 
-    // Handle drag start event to track which ship is being dragged
+    // Timer logic (start on first move, stop when game is over)
+    useEffect(() => {
+        let interval;
+        if (gameStarted && !gameOver) {
+            interval = setInterval(() => setTimer((t) => t + 1), 1000);
+        }
+        return () => clearInterval(interval);
+    }, [gameStarted, gameOver]);
+
+    // Handle ship drag start
     const handleDragStart = (e, ship) => {
         if (ship.placed) {
             e.preventDefault();
         } else {
             e.dataTransfer.setData('ship', JSON.stringify(ship));
-            e.target.style.opacity = '0.5'; // Makes it clear that the ship is being dragged
+            e.target.style.opacity = '0.5'; // Makes dragging effect visible
         }
     };
 
@@ -32,20 +48,19 @@ function Play() {
         e.target.style.opacity = '1'; // Restore opacity after dragging
     };
 
-
-    // Handle drop event to place the ship on the board
+    // Handle dropping a ship onto the board
     const handleDrop = (e, index) => {
         e.preventDefault();
         const ship = JSON.parse(e.dataTransfer.getData('ship'));
 
-        if (ship.placed) return;  // Ship already placed? Don't place again
+        if (ship.placed) return; // Prevent re-placing the same ship
 
         const newBoard = [...board];
         const newShipPositions = getShipPositions(index, ship.size);
 
-        if (!newShipPositions) return;  // Prevent invalid placement
+        if (!newShipPositions) return; // Prevent invalid placement
 
-        // Make sure no overlap
+        // Prevent ship overlap
         if (newShipPositions.some(pos => newBoard[pos] !== null)) {
             alert("Ships cannot overlap!");
             return;
@@ -60,19 +75,44 @@ function Play() {
         setBoard(newBoard);
     };
 
-    // Helper function to calculate the positions of a ship based on start cell and size
+    // Get ship positions (horizontal placement)
     const getShipPositions = (startIndex, size) => {
-        // Example logic: horizontal placement (adjust as needed)
         const positions = [];
         for (let i = 0; i < size; i++) {
             const newIndex = startIndex + i;
-            if (newIndex < 100 && Math.floor(newIndex / 10) === Math.floor(startIndex / 10)) {
+            if (newIndex < 100 && Math.floor(newIndex / BOARD_SIZE) === Math.floor(startIndex / BOARD_SIZE)) {
                 positions.push(newIndex);
             } else {
-                return null; // Invalid placement (out of bounds or wrapping)
+                return null; // Prevent wrapping around
             }
         }
         return positions;
+    };
+
+    // Attack enemy board
+    const attackEnemy = (index) => {
+        if (!gameStarted) setGameStarted(true);
+        if (gameOver || enemyBoard[index] !== null) return;
+
+        let newBoard = [...enemyBoard];
+        let hit = Math.random() > 0.5 ? "H" : "M";
+        newBoard[index] = hit;
+        setEnemyBoard(newBoard);
+
+        // Check for game over
+        if (!newBoard.includes(null)) {
+            setGameOver(true);
+        }
+    };
+
+    // Reset game (including timer)
+    const resetGame = () => {
+        setBoard(Array(100).fill(null));
+        setEnemyBoard(Array(100).fill(null));
+        setShips(ships.map(ship => ({ ...ship, placed: false, positions: [] })));
+        setGameStarted(false);
+        setTimer(0);
+        setGameOver(false);
     };
 
     return (
@@ -84,18 +124,15 @@ function Play() {
                     <h1>Battleship Sample Game</h1>
                 </header>
 
-                {/* Timer and Restart Button */}
-                <h3>
-                    Timer: <span className="red-text">00:05:32 </span>
-                    <button className="restart-button">Restart</button>
-                </h3>
+                {/* Timer */}
+                <p>Time: {timer} seconds</p>
 
-                {/* Available Ships Box */}
-                <div className="available-ships">
+                {/* Ship Selection & Drag Area */}
+                <div className="ship-selection">
+                    <h2>Available Ships</h2>
                     {ships.map((ship) => (
                         <div
                             key={ship.id}
-                            id={ship.id}
                             className="ship"
                             draggable={!ship.placed}
                             onDragStart={(e) => handleDragStart(e, ship)}
@@ -103,25 +140,47 @@ function Play() {
                         >
                             {ship.id}
                         </div>
-
                     ))}
                 </div>
 
-                {/* Player Board (10x10 Grid) */}
-                <div className="player-board">
+                {/* Player Board */}
+                <h2>Your Board</h2>
+                <div className="grid-container">
                     {board.map((cell, index) => (
                         <div
                             key={index}
-                            className={`board-cell ${cell ? 'occupied' : ''}`}
+                            className={`cell ${cell ? 'ship' : ''}`}
                             onDrop={(e) => handleDrop(e, index)}
-                            onDragOver={(e) => e.preventDefault()} // Allow drop
+                            onDragOver={(e) => e.preventDefault()}
                         >
-                            {cell && <span>{cell}</span>}
+                            {cell ? "S" : ""}
                         </div>
                     ))}
                 </div>
 
+                {/* Enemy Board */}
+                <h2>Enemy Board</h2>
+                <div className="grid-container">
+                    {enemyBoard.map((cell, index) => (
+                        <div
+                            key={index}
+                            className={`cell ${cell === "H" ? 'hit' : cell === "M" ? 'miss' : ''}`}
+                            onClick={() => attackEnemy(index)}
+                        >
+                            {cell === "H" ? "✔" : cell === "M" ? "✖" : ""}
+                        </div>
+                    ))}
+                </div>
+
+                {/* Reset Button */}
+                <button onClick={resetGame} className="restart-button">
+                    Reset Game
+                </button>
+
+                {/* Game Over Notification */}
+                {gameOver && <p className="game-over">Game Over!</p>}
             </main>
+
             <Footer />
         </div>
     );

@@ -1,71 +1,44 @@
-.game-container {
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(10, 50px);
+    grid-template-rows: repeat(10, 50px);
+    gap: 2px;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    background-color: lightskyblue;
+    border: 1px solid white;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding: 20px;
+    transition: background-color 0.3s ease;
 }
 
-.game-header {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.timer {
-    font-size: 24px;
-}
-
-.reset-button {
-    padding: 10px;
-    font-size: 16px;
+.cell:hover {
+    background-color: orange;
     cursor: pointer;
 }
 
-.available-ships {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px;
-    border: 2px dashed gray;
-    margin-bottom: 15px; /* Adds spacing between available ships and the board */
-    width: fit-content;
-}
-
 .ship {
-    width: 50px;
-    height: 25px;
-    background-color: gray;
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: grab;
+    background-color: darkgray;
+}
+
+.hit {
+    background-color: lightgreen;
+}
+
+.miss {
+    background-color: lightcoral;
+}
+
+.restart-button {
+    padding: 10px 20px;
+    margin: 10px 0;
+    background-color: darkgray;
+    color: black;
+    border: none;
     border-radius: 5px;
-}
-
-.ship:active {
-    cursor: grabbing;
-}
-
-.player-board {
-    display: grid;
-    grid-template-columns: repeat(10, 40px);
-    grid-template-rows: repeat(10, 40px);
-    gap: 2px;
-    border: 2px solid black;
-    margin: 0 auto; /* Ensures centering */
-}
-
-.board-cell {
-    width: 40px;
-    height: 40px;
-    background-color: lightblue;
-    border: 1px solid black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.board-cell.occupied {
-    background-color: darkgray !important; /* Makes occupied cells visible */
+    cursor: pointer;
 }
