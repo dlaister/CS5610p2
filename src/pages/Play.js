@@ -13,11 +13,11 @@ function Play() {
 
     // Ship state
     const [ships, setShips] = useState([
-        { id: 'Carrier 5x1', size: 5, placed: false, positions: [] },
-        { id: 'Battleship 4x1', size: 4, placed: false, positions: [] },
-        { id: 'Cruiser 3x1', size: 3, placed: false, positions: [] },
-        { id: 'Submarine 3x1', size: 3, placed: false, positions: [] },
-        { id: 'Destroyer 2x1', size: 2, placed: false, positions: [] },
+        { id: 'Carrier 5x1', size: 5, placed: false, positions: [], isHorizontal: true },
+        { id: 'Battleship 4x1', size: 4, placed: false, positions: [], isHorizontal: true },
+        { id: 'Cruiser 3x1', size: 3, placed: false, positions: [], isHorizontal: true },
+        { id: 'Submarine 3x1', size: 3, placed: false, positions: [], isHorizontal: true },
+        { id: 'Destroyer 2x1', size: 2, placed: false, positions: [], isHorizontal: true },
     ]);
 
     // Game state
@@ -37,7 +37,7 @@ function Play() {
     // Handle ship drag start
     const handleDragStart = (e, ship) => {
         if (ship.placed) {
-            e.preventDefault();
+            e.preventDefault(); // Prevent dragging if ship is placed
         } else {
             e.dataTransfer.setData('ship', JSON.stringify(ship));
             e.target.style.opacity = '0.5'; // Makes dragging effect visible
@@ -56,7 +56,7 @@ function Play() {
         if (ship.placed) return; // Prevent re-placing the same ship
 
         const newBoard = [...board];
-        const newShipPositions = getShipPositions(index, ship.size);
+        const newShipPositions = getShipPositions(index, ship.size, ship.isHorizontal);
 
         if (!newShipPositions) return; // Prevent invalid placement
 
@@ -69,24 +69,44 @@ function Play() {
         // Place ship
         ship.placed = true;
         ship.positions = newShipPositions;
-        setShips([...ships]);
+        setShips((prevShips) => prevShips.map(s => s.id === ship.id ? { ...s, placed: true, positions: newShipPositions } : s));
 
         newShipPositions.forEach(pos => newBoard[pos] = ship.id);
         setBoard(newBoard);
     };
 
-    // Get ship positions (horizontal placement)
-    const getShipPositions = (startIndex, size) => {
+    // Get ship positions based on orientation (horizontal/vertical)
+    const getShipPositions = (startIndex, size, isHorizontal) => {
         const positions = [];
         for (let i = 0; i < size; i++) {
-            const newIndex = startIndex + i;
-            if (newIndex < 100 && Math.floor(newIndex / BOARD_SIZE) === Math.floor(startIndex / BOARD_SIZE)) {
-                positions.push(newIndex);
+            let newIndex;
+            if (isHorizontal) {
+                newIndex = startIndex + i;
+                if (newIndex < 100 && Math.floor(newIndex / BOARD_SIZE) === Math.floor(startIndex / BOARD_SIZE)) {
+                    positions.push(newIndex);
+                } else {
+                    return null; // Prevent wrapping around
+                }
             } else {
-                return null; // Prevent wrapping around
+                newIndex = startIndex + i * BOARD_SIZE; // Vertical placement
+                if (newIndex < 100) {
+                    positions.push(newIndex);
+                } else {
+                    return null; // Prevent wrapping around
+                }
             }
         }
         return positions;
+    };
+
+    // Rotate ship (toggle horizontal/vertical)
+    const handleRotate = (shipId) => {
+        setShips((prevShips) => prevShips.map(ship => {
+            if (ship.id === shipId && !ship.placed) {
+                return { ...ship, isHorizontal: !ship.isHorizontal };
+            }
+            return ship;
+        }));
     };
 
     // Attack enemy board
@@ -109,7 +129,7 @@ function Play() {
     const resetGame = () => {
         setBoard(Array(100).fill(null));
         setEnemyBoard(Array(100).fill(null));
-        setShips(ships.map(ship => ({ ...ship, placed: false, positions: [] })));
+        setShips(ships.map(ship => ({ ...ship, placed: false, positions: [], isHorizontal: true })));
         setGameStarted(false);
         setTimer(0);
         setGameOver(false);
@@ -130,18 +150,29 @@ function Play() {
                 {/* Ship Selection & Drag Area */}
                 <div className="ship-selection">
                     <h2>Available Ships</h2>
-                    {ships.map((ship) => (
-                        <div
-                            key={ship.id}
-                            className="ship"
-                            draggable={!ship.placed}
-                            onDragStart={(e) => handleDragStart(e, ship)}
-                            onDragEnd={handleDragEnd}
-                        >
-                            {ship.id}
+                    {ships.filter(ship => !ship.placed).map((ship) => (
+                        <div key={ship.id} className="ship-container">
+                            {/* Ship name with rotate button */}
+                            <div
+                                className="ship"
+                                draggable={!ship.placed}
+                                onDragStart={(e) => handleDragStart(e, ship)}
+                                onDragEnd={handleDragEnd}
+                            >
+                                {ship.id}
+                            </div>
+                            {/* Rotate button */}
+                            <button
+                                onClick={() => handleRotate(ship.id)}
+                                disabled={ship.placed}
+                                className="ship-button"
+                            >
+                                {ship.isHorizontal ? 'Vertical' : 'Horizontal'}
+                            </button>
                         </div>
                     ))}
                 </div>
+
 
                 {/* Player Board */}
                 <h2>Your Board</h2>
