@@ -29,10 +29,16 @@ function Play() {
     useEffect(() => {
         let interval;
         if (gameStarted && !gameOver) {
-            interval = setInterval(() => setTimer((t) => t + 1), 1000);
+            interval = setInterval(() => setTimer((t) => t + 1), 1000); // Update timer every second
         }
         return () => clearInterval(interval);
     }, [gameStarted, gameOver]);
+
+    // Use Date object to format time as hh:mm:ss
+    const formatTime = (seconds) => {
+        const date = new Date(seconds * 1000); // Convert seconds to milliseconds
+        return date.toISOString().substr(11, 8); // Extract hh:mm:ss part from the ISO string
+    };
 
     // Handle ship drag start
     const handleDragStart = (e, ship) => {
@@ -135,6 +141,10 @@ function Play() {
         setGameOver(false);
     };
 
+    const getShipClass = (shipId) => {
+        return shipId.split(" ")[0].toLowerCase(); // Extract first word & lowercase
+    };
+
     return (
         <div className="play">
             <Navbar />
@@ -144,69 +154,115 @@ function Play() {
                     <h1>Battleship Sample Game</h1>
                 </header>
 
-                {/* Timer */}
-                <p>Time: {timer} seconds</p>
+                {/* Timer and Reset Button */}
+                <div className="top-controls">
+                    <p>
+                        <span>Time:</span>
+                        <span className="timerColor">{formatTime(timer)}</span>
+                    </p>
+
+                    <button onClick={resetGame} className="restart-button">
+                        Reset Game
+                    </button>
+
+                </div>
 
                 {/* Ship Selection & Drag Area */}
                 <div className="ship-selection">
                     <h2>Available Ships</h2>
-                    {ships.filter(ship => !ship.placed).map((ship) => (
-                        <div key={ship.id} className="ship-container">
-                            {/* Ship name with rotate button */}
+                    {ships.some(ship => !ship.placed) ? (
+                        ships.filter(ship => !ship.placed).map((ship) => (
                             <div
-                                className="ship"
-                                draggable={!ship.placed}
-                                onDragStart={(e) => handleDragStart(e, ship)}
-                                onDragEnd={handleDragEnd}
+                                key={ship.id}
+                                className={`ship-container ${getShipClass(ship.id)}`}
                             >
-                                {ship.id}
+                                {/* Ship name */}
+                                <div
+                                    className="ship"
+                                    draggable={!ship.placed}
+                                    onDragStart={(e) => handleDragStart(e, ship)}
+                                    onDragEnd={handleDragEnd}
+                                >
+                                    {ship.id}
+                                </div>
+                                {/* Rotate button */}
+                                <button
+                                    onClick={() => handleRotate(ship.id)}
+                                    disabled={ship.placed}
+                                    className="ship-button"
+                                >
+                                    {ship.isHorizontal ? 'Vertical' : 'Horizontal'}
+                                </button>
                             </div>
-                            {/* Rotate button */}
-                            <button
-                                onClick={() => handleRotate(ship.id)}
-                                disabled={ship.placed}
-                                className="ship-button"
-                            >
-                                {ship.isHorizontal ? 'Vertical' : 'Horizontal'}
-                            </button>
-                        </div>
-                    ))}
+                        ))
+                    ) : (
+                        <p className="all-placed-message">All ships are placed!</p>
+                    )}
                 </div>
 
 
-                {/* Player Board */}
+                {/* Your Board */}
                 <h2>Your Board</h2>
-                <div className="grid-container">
-                    {board.map((cell, index) => (
-                        <div
-                            key={index}
-                            className={`cell ${cell ? 'ship' : ''}`}
-                            onDrop={(e) => handleDrop(e, index)}
-                            onDragOver={(e) => e.preventDefault()}
-                        >
-                            {cell ? "S" : ""}
-                        </div>
-                    ))}
+                <div className="board">
+                    <div className="board-headers">
+                        {/* Column headers A-J */}
+                        <div className="header-cell"></div> {/* Empty corner cell */}
+                        {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].map((label) => (
+                            <div key={label} className="header-cell">{label}</div>
+                        ))}
+                    </div>
+                    <div className="grid-container">
+                        {/* Row headers 1-10 */}
+                        {Array.from({ length: 10 }).map((_, rowIndex) => (
+                            <div key={rowIndex} className="board-row">
+                                <div className="header-cell">{rowIndex + 1}</div>
+                                {board.slice(rowIndex * 10, (rowIndex + 1) * 10).map((cell, index) => {
+                                    // Get ship name class if a ship is placed
+                                    const shipClass = cell ? getShipClass(cell) : '';
+
+                                    return (
+                                        <div
+                                            key={index}
+                                            className={`cell ${shipClass}`} // Apply the ship class here
+                                            onDrop={(e) => handleDrop(e, rowIndex * 10 + index)}
+                                            onDragOver={(e) => e.preventDefault()}
+                                        >
+                                            {cell ? "S" : ""}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        ))}
+                    </div>
                 </div>
+
 
                 {/* Enemy Board */}
                 <h2>Enemy Board</h2>
-                <div className="grid-container">
-                    {enemyBoard.map((cell, index) => (
-                        <div
-                            key={index}
-                            className={`cell ${cell === "H" ? 'hit' : cell === "M" ? 'miss' : ''}`}
-                            onClick={() => attackEnemy(index)}
-                        >
-                            {cell === "H" ? "✔" : cell === "M" ? "✖" : ""}
-                        </div>
-                    ))}
+                <div className="board">
+                    <div className="board-headers">
+                        <div className="header-cell"></div> {/* Empty corner cell */}
+                        {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].map((label) => (
+                            <div key={label} className="header-cell">{label}</div>
+                        ))}
+                    </div>
+                    <div className="grid-container">
+                        {Array.from({ length: 10 }).map((_, rowIndex) => (
+                            <div key={rowIndex} className="board-row">
+                                <div className="header-cell">{rowIndex + 1}</div>
+                                {enemyBoard.slice(rowIndex * 10, (rowIndex + 1) * 10).map((cell, index) => (
+                                    <div
+                                        key={index}
+                                        className={`cell ${cell === "H" ? 'hit' : cell === "M" ? 'miss' : ''}`}
+                                        onClick={() => attackEnemy(rowIndex * 10 + index)}
+                                    >
+                                        {cell === "H" ? "✔" : cell === "M" ? "✖" : ""}
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
                 </div>
-
-                {/* Reset Button */}
-                <button onClick={resetGame} className="restart-button">
-                    Reset Game
-                </button>
 
                 {/* Game Over Notification */}
                 {gameOver && <p className="game-over">Game Over!</p>}
@@ -214,6 +270,7 @@ function Play() {
 
             <Footer />
         </div>
+
     );
 }
 
