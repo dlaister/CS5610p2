@@ -1,5 +1,5 @@
-import Navbar from '../components/Navbar';
 import { Link } from "react-router-dom";
+import Navbar from '../components/Navbar';
 import '../styles/global.css';
 import '../styles/home.css';
 import Footer from '../components/Footer';
@@ -16,8 +16,10 @@ function Home() {
                     <h1>Battleship Home</h1>
                 </header>
 
-                <h3>Welcome to the world of <span className="red-text">Battleship</span>.</h3>
-                <h3>Command the Seas: Play Battleship Online!</h3>
+                <div className="sub-main">
+                    <h3>Welcome to the world of <span className="red-text">Battleship</span>.</h3>
+                    <h3>Command the Seas: Play Battleship Online!</h3>
+                </div>
 
                 <p>
                     Are you ready to outmaneuver your opponent, unleash devastating attacks, and claim victory on the high seas? Battleship is the ultimate test of strategy, deception, and naval warfare! Whether you're a seasoned captain or a fresh recruit, the thrill of battle awaits.
@@ -37,7 +39,7 @@ function Home() {
                 <p>
                     The ocean is vast, but victory is within reach. Do you have what it takes to become the ultimate naval commander?
                 </p>
-                <p>
+                <p className="FirstBattle">
                     <Link to="/play" style={{ textDecoration: "none", color: "blue", fontWeight: "bold" }}>
                         {"<<< Click Here to Start Your First Battle! >>>"}
                     </Link>

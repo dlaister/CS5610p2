@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar';
-import '../styles/global.css';
-import '../styles/play.css';
-import Footer from '../components/Footer';
+import Navbar from '../../components/Navbar';
+import '../../styles/global.css';
+import '../../styles/normal.css';
+import Footer from '../../components/Footer';
 
-function Play() {
+function Normal() {
     const BOARD_SIZE = 10;
 
     // Board state (10x10 grid represented as a 1D array)
@@ -274,4 +274,4 @@ function Play() {
     );
 }
 
-export default Play;
+export default Normal;

@@ -7,6 +7,16 @@ main{
     padding-bottom: 100px;
 }
 
+.sub-main {
+    text-align: center;
+    padding: 15px;
+}
+
+.FirstBattle {
+    text-align: center;
+    padding: 20px;
+}
+
 h1{
     text-align: center;
     font-family: "Myanmar MN", cursive;
@@ -32,12 +42,12 @@ p{
 
 .red-text{
     color: red;
-    font-family: "Euphemia UCAS";
+    font-family: "Euphemia UCAS", serif;
 }
 
 .blue-text{
     color: blue;
-    font-family: "Euphemia UCAS";
+    font-family: "Euphemia UCAS", serif;
 }
 
 /* page sizing effect (mobile application) */

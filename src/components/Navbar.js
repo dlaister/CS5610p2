@@ -6,8 +6,8 @@ function Navbar() {
         <nav className="navbar">
             <ul>
                 <li><NavLink to="/" className={({ isActive }) => (isActive ? "active-page" : "")}>Home</NavLink></li>
-                <li><NavLink to="/sample" className={({ isActive }) => (isActive ? "active-page" : "")}>The Game</NavLink></li>
                 <li><NavLink to="/rules" className={({ isActive }) => (isActive ? "active-page" : "")}>The Rules</NavLink></li>
+                <li><NavLink to="/game" className={({ isActive }) => (isActive ? "active-page" : "")}>The Game</NavLink></li>
                 <li><NavLink to="/scores" className={({ isActive }) => (isActive ? "active-page" : "")}>The Scores</NavLink></li>
             </ul>
         </nav>
