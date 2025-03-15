@@ -9,13 +9,13 @@ function Game() {
         <div className="sample">
             <Navbar />
             <main className="main">
-                <header >
-                    <h1>Battleship, The Game</h1>
-                    <p className="sub-main">Select a game mode to start playing!</p>
+                <header>
+                    <h1>Battleship Game</h1>
                 </header>
 
                 <div className="main-container">
                     <div className="game-mode-div">
+                        <h3 className="sub-main">Select a game mode to start playing!</h3>
 
                         <div className="game-mode">
                             <h2>Easy Mode:</h2>

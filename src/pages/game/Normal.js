@@ -151,7 +151,7 @@ function Normal() {
 
             <main className="main">
                 <header>
-                    <h1>Battleship Sample Game</h1>
+                    <h1>Battleship Game, Normal Mode</h1>
                 </header>
 
                 {/* Timer and Reset Button */}
