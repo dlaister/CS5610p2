@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
+import SetEnemyBoard from '../../components/SetEnemyBoard';
 import '../../styles/global.css';
 import '../../styles/normal.css';
-import Footer from '../../components/Footer';
 
 function Normal() {
     const BOARD_SIZE = 10;
@@ -39,6 +40,15 @@ function Normal() {
         const date = new Date(seconds * 1000); // Convert seconds to milliseconds
         return date.toISOString().substr(11, 8); // Extract hh:mm:ss part from the ISO string
     };
+
+    // Initialize enemy board with random ships placement
+    useEffect(() => {
+        if (enemyBoard.every(cell => cell === null)) { // Ensure enemy board is empty before setting
+            setEnemyBoard(prev => {
+                return Array(100).fill(null); // Initialize empty enemy board
+            });
+        }
+    }, [enemyBoard]);
 
     // Handle ship drag start
     const handleDragStart = (e, ship) => {
@@ -121,8 +131,13 @@ function Normal() {
         if (gameOver || enemyBoard[index] !== null) return;
 
         let newBoard = [...enemyBoard];
-        let hit = Math.random() > 0.5 ? "H" : "M";
-        newBoard[index] = hit;
+        // Instead of random hit logic, we'll just mark it as a hit (or miss) depending on the actual board state
+        if (enemyBoard[index] !== null) {
+            newBoard[index] = "H"; // Mark as hit if the square is part of a ship
+        } else {
+            newBoard[index] = "M"; // Mark as miss
+        }
+
         setEnemyBoard(newBoard);
 
         // Check for game over
@@ -130,6 +145,7 @@ function Normal() {
             setGameOver(true);
         }
     };
+
 
     // Reset game (including timer)
     const resetGame = () => {
@@ -164,7 +180,6 @@ function Normal() {
                     <button onClick={resetGame} className="restart-button">
                         Reset Game
                     </button>
-
                 </div>
 
                 {/* Ship Selection & Drag Area */}
@@ -199,7 +214,6 @@ function Normal() {
                         <p className="all-placed-message">All ships are placed!</p>
                     )}
                 </div>
-
 
                 {/* Your Board */}
                 <h2>Your Board</h2>
@@ -236,7 +250,6 @@ function Normal() {
                     </div>
                 </div>
 
-
                 {/* Enemy Board */}
                 <h2>Enemy Board</h2>
                 <div className="board">
@@ -264,13 +277,15 @@ function Normal() {
                     </div>
                 </div>
 
+                {/* Call SetEnemyBoard after enemyBoard is initialized */}
+                <SetEnemyBoard setEnemyBoard={setEnemyBoard} />
+
                 {/* Game Over Notification */}
                 {gameOver && <p className="game-over">Game Over!</p>}
             </main>
 
             <Footer />
         </div>
-
     );
 }
 
