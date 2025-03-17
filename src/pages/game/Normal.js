@@ -41,14 +41,7 @@ function Normal() {
         return date.toISOString().substr(11, 8); // Extract hh:mm:ss part from the ISO string
     };
 
-    // Initialize enemy board with random ships placement
-    useEffect(() => {
-        if (enemyBoard.every(cell => cell === null)) { // Ensure enemy board is empty before setting
-            setEnemyBoard(prev => {
-                return Array(100).fill(null); // Initialize empty enemy board
-            });
-        }
-    }, [enemyBoard]);
+
 
     // Handle ship drag start
     const handleDragStart = (e, ship) => {
@@ -259,6 +252,7 @@ function Normal() {
                             <div key={label} className="header-cell">{label}</div>
                         ))}
                     </div>
+
                     <div className="grid-container">
                         {Array.from({ length: 10 }).map((_, rowIndex) => (
                             <div key={rowIndex} className="board-row">
