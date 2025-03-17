@@ -67,12 +67,16 @@ const SetEnemyBoard = ({ setEnemyBoard }) => {  // Destructure props to access s
     ];
 
     // Select a random enemy board layout
-    const selectedBoard = enemyBoards[Math.floor(Math.random() * enemyBoards.length)];
 
     // Update enemy board state
     useEffect(() => {
-        setEnemyBoard(selectedBoard);
-    }, [setEnemyBoard, selectedBoard]);
+        const randomNumber = Math.floor(Math.random() * enemyBoards.length)
+        const selectedBoard = enemyBoards[randomNumber];
+        console.log(randomNumber);
+
+        setEnemyBoard(selectedBoard);}, [setEnemyBoard]); // every time the board is changed, rerun the useeffect command (runs endlessly the parent component)
+    // make usre random number is genereated when you need it.
+
 
     return null; // You can return something here if needed, or leave it empty
 };

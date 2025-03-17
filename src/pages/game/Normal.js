@@ -121,7 +121,9 @@ function Normal() {
     // Attack enemy board
     const attackEnemy = (index) => {
         if (!gameStarted) setGameStarted(true);
-        if (gameOver || enemyBoard[index] !== null) return;
+        // if (gameOver || enemyBoard[index] !== null) return;
+        if (gameOver || enemyBoard[index] === "H" || enemyBoard[index] === "M") return;
+
 
         let newBoard = [...enemyBoard];
         // Instead of random hit logic, we'll just mark it as a hit (or miss) depending on the actual board state
@@ -273,6 +275,8 @@ function Normal() {
 
                 {/* Call SetEnemyBoard after enemyBoard is initialized */}
                 <SetEnemyBoard setEnemyBoard={setEnemyBoard} />
+                {/*usestate function (bad practice!, usecontext*/}
+                {/**/}
 
                 {/* Game Over Notification */}
                 {gameOver && <p className="game-over">Game Over!</p>}
