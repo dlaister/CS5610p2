@@ -9,7 +9,6 @@ function Normal() {
     const BOARD_SIZE = 10;
 
     // Board state (10x10 grid represented as a 1D array)
-    const [board, setBoard] = useState(Array(100).fill(null));
     const [enemyBoard, setEnemyBoard] = useState(Array(100).fill(null));
 
     // Ship state
@@ -24,6 +23,9 @@ function Normal() {
     // Game state
     const [gameStarted, setGameStarted] = useState(false);
     const [gameOver, setGameOver] = useState(false);
+    const [isPlayerTurn, setIsPlayerTurn] = useState(true);
+    const [playerBoard, setPlayerBoard] = useState(Array(100).fill(null));
+
     const [timer, setTimer] = useState(0);
 
     // Timer logic (start on first move, stop when game is over)
@@ -66,7 +68,7 @@ function Normal() {
 
         if (ship.placed) return; // Prevent re-placing the same ship
 
-        const newBoard = [...board];
+        const newBoard = [...playerBoard];
         const newShipPositions = getShipPositions(index, ship.size, ship.isHorizontal);
 
         if (!newShipPositions) return; // Prevent invalid placement
@@ -83,7 +85,7 @@ function Normal() {
         setShips((prevShips) => prevShips.map(s => s.id === ship.id ? { ...s, placed: true, positions: newShipPositions } : s));
 
         newShipPositions.forEach(pos => newBoard[pos] = ship.id);
-        setBoard(newBoard);
+        setPlayerBoard(newBoard);
     };
 
     // Get ship positions based on orientation (horizontal/vertical)
@@ -120,10 +122,20 @@ function Normal() {
         }));
     };
 
+    // Check if all ships are placed on teh player board
+    const allShipsPlaced = () => {
+        return ships.every(ship => ship.placed);
+    };
+
     // Attack enemy board
     const attackEnemy = (index) => {
+        if (!allShipsPlaced()) {
+            alert("You must place all your ships before attacking!");
+            return;
+        }
+
         if (!gameStarted) setGameStarted(true);
-        if (gameOver || enemyBoard[index] === "H" || enemyBoard[index] === "M") return;
+        if (gameOver || !isPlayerTurn || enemyBoard[index] === "H" || enemyBoard[index] === "M") return;
 
         let newBoard = [...enemyBoard];
         newBoard[index] = enemyBoard[index] !== null ? "H" : "M";
@@ -131,18 +143,62 @@ function Normal() {
 
         if (checkGameOver(newBoard)) {
             setGameOver(true);
+            return;
         }
+
+        setIsPlayerTurn(false);
+        setTimeout(enemyAttack, 1000);
     };
+
+
+    const enemyAttack = () => {
+        if (gameOver) return;
+
+        let availableCells = playerBoard
+            .map((cell, index) => (cell !== "H" && cell !== "M" ? index : null))
+            .filter(index => index !== null);
+
+        if (availableCells.length === 0) return; // No more moves available
+
+        let attackIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
+
+        let newBoard = [...playerBoard];
+        newBoard[attackIndex] = newBoard[attackIndex] !== null ? "H" : "M";
+        setPlayerBoard(newBoard);
+
+        if (checkGameOver(newBoard)) {
+            setGameOver(true);
+            return;
+        }
+
+        setIsPlayerTurn(true); // Switch back to player's turn
+    };
+
+
+
 
     const [resetTrigger, setResetTrigger] = useState(false);
 
     // Reset game (including timer)
     const resetGame = () => {
-        setGameStarted(false);
-        setTimer(0);
+        setGameStarted(false);  // Ensure timer stops
         setGameOver(false);
-        setResetTrigger(prev => !prev); // Toggle the trigger to signal SetEnemyBoard to reset
+        setIsPlayerTurn(true);
+        setPlayerBoard(Array(100).fill(null));
+        setEnemyBoard(Array(100).fill(null));
+        setShips([
+            { id: 'Carrier 5x1', size: 5, placed: false, positions: [], isHorizontal: true },
+            { id: 'Battleship 4x1', size: 4, placed: false, positions: [], isHorizontal: true },
+            { id: 'Cruiser 3x1', size: 3, placed: false, positions: [], isHorizontal: true },
+            { id: 'Submarine 3x1', size: 3, placed: false, positions: [], isHorizontal: true },
+            { id: 'Destroyer 2x1', size: 2, placed: false, positions: [], isHorizontal: true },
+        ]);
+
+        setTimer(0);  // Reset timer
+
+        setResetTrigger(prev => !prev); // Toggle reset trigger
     };
+
 
     const getShipClass = (shipId) => {
         return shipId.split(" ")[0].toLowerCase(); // Extract first word & lowercase
@@ -221,7 +277,9 @@ function Normal() {
                         {Array.from({ length: 10 }).map((_, rowIndex) => (
                             <div key={rowIndex} className="board-row">
                                 <div className="header-cell">{rowIndex + 1}</div>
-                                {board.slice(rowIndex * 10, (rowIndex + 1) * 10).map((cell, index) => {
+                                {/*{board.slice(rowIndex * 10, (rowIndex + 1) * 10).map((cell, index) => {*/}
+                                {playerBoard.slice(rowIndex * 10, (rowIndex + 1) * 10).map((cell, index) => {
+
                                     // Get ship name class if a ship is placed
                                     const shipClass = cell ? getShipClass(cell) : '';
 
@@ -280,7 +338,6 @@ function Normal() {
 }
 
 export default Normal;
-
 
 // TODO -- set board so that player can attack the enemy board only on their turn
 // TODO -- enemy logic to attack player

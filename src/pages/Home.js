@@ -44,8 +44,8 @@ function Home() {
                     </div>
 
                     <p className="FirstBattle">
-                        <Link to="/play" style={{ textDecoration: "none", color: "blue", fontWeight: "bold" }}>
-                            {"<<< Click Here to Start Your First Battle! >>>"}
+                        <Link to="/game" style={{ textDecoration: "none", color: "blue", fontWeight: "bold" }}>
+                            {"<<< Click Here To Start Your First Battle! >>>"}
                         </Link>
                     </p>
 
