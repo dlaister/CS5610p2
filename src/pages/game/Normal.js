@@ -41,7 +41,9 @@ function Normal() {
         return date.toISOString().substr(11, 8); // Extract hh:mm:ss part from the ISO string
     };
 
-
+    const checkGameOver = (board) => {
+        return board.every((cell) => cell === null || cell === "H" || cell === "M");
+    };
 
     // Handle ship drag start
     const handleDragStart = (e, ship) => {
@@ -121,35 +123,25 @@ function Normal() {
     // Attack enemy board
     const attackEnemy = (index) => {
         if (!gameStarted) setGameStarted(true);
-        // if (gameOver || enemyBoard[index] !== null) return;
         if (gameOver || enemyBoard[index] === "H" || enemyBoard[index] === "M") return;
 
-
         let newBoard = [...enemyBoard];
-        // Instead of random hit logic, we'll just mark it as a hit (or miss) depending on the actual board state
-        if (enemyBoard[index] !== null) {
-            newBoard[index] = "H"; // Mark as hit if the square is part of a ship
-        } else {
-            newBoard[index] = "M"; // Mark as miss
-        }
-
+        newBoard[index] = enemyBoard[index] !== null ? "H" : "M";
         setEnemyBoard(newBoard);
 
-        // Check for game over
-        if (!newBoard.includes(null)) {
+        if (checkGameOver(newBoard)) {
             setGameOver(true);
         }
     };
 
+    const [resetTrigger, setResetTrigger] = useState(false);
 
     // Reset game (including timer)
     const resetGame = () => {
-        setBoard(Array(100).fill(null));
-        setEnemyBoard(Array(100).fill(null));
-        setShips(ships.map(ship => ({ ...ship, placed: false, positions: [], isHorizontal: true })));
         setGameStarted(false);
         setTimer(0);
         setGameOver(false);
+        setResetTrigger(prev => !prev); // Toggle the trigger to signal SetEnemyBoard to reset
     };
 
     const getShipClass = (shipId) => {
@@ -253,7 +245,7 @@ function Normal() {
                 <h2>Enemy Board</h2>
                 <div className="board">
                     <div className="board-headers">
-                        <div className="header-cell"></div> {/* Empty corner cell */}
+                        <div className="header-cell"></div>
                         {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].map((label) => (
                             <div key={label} className="header-cell">{label}</div>
                         ))}
@@ -277,12 +269,8 @@ function Normal() {
                     </div>
                 </div>
 
-                {/* Call SetEnemyBoard after enemyBoard is initialized */}
-                <SetEnemyBoard setEnemyBoard={setEnemyBoard} />
-                {/*usestate function (bad practice!, usecontext*/}
-                {/**/}
+                <SetEnemyBoard setEnemyBoard={setEnemyBoard} resetTrigger={resetTrigger} />
 
-                {/* Game Over Notification */}
                 {gameOver && <p className="game-over">Game Over!</p>}
             </main>
 
@@ -296,4 +284,3 @@ export default Normal;
 
 // TODO -- set board so that player can attack the enemy board only on their turn
 // TODO -- enemy logic to attack player
-//

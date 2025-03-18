@@ -64,6 +64,7 @@ function Easy() {
                         <span>Time:</span>
                         <span className="timerColor">{formatTime(timer)}</span>
                     </p>
+
                     <button onClick={resetGame} className="restart-button">
                         Reset Game
                     </button>
