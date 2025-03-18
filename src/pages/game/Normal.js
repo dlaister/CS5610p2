@@ -177,6 +177,10 @@ function Normal() {
                     </button>
                 </div>
 
+                <div className="board-description">
+                    Bellow, you can set your board and play against the enemy AI!
+                </div>
+
                 {/* Ship Selection & Drag Area */}
                 <div className="ship-selection">
                     <h2>Available Ships</h2>
@@ -288,3 +292,8 @@ function Normal() {
 }
 
 export default Normal;
+
+
+// TODO -- set board so that player can attack the enemy board only on their turn
+// TODO -- enemy logic to attack player
+//

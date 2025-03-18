@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-const SetEnemyBoard = ({ setEnemyBoard }) => {  // Destructure props to access setEnemyBoard
-    // Define five different enemy board layouts
+const SetEnemyBoard = ({ setEnemyBoard, resetTrigger }) => {
+    // Define different enemy board layouts
     const enemyBoards = [
         [  // Layout 1
             "C", "C", "C", "C", "C", null, null, null, null, null,
@@ -63,22 +63,23 @@ const SetEnemyBoard = ({ setEnemyBoard }) => {  // Destructure props to access s
             null, null, null, null, null, null, null, "C", "C", "C",
             null, null, null, null, null, null, null, null, null, null
         ],
-        // Add more layouts???
     ];
 
-    // Select a random enemy board layout
+    // Track last selected board to prevent repetition
+    const [lastSelectedIndex, setLastSelectedIndex] = useState(null);
 
-    // Update enemy board state
     useEffect(() => {
-        const randomNumber = Math.floor(Math.random() * enemyBoards.length)
-        const selectedBoard = enemyBoards[randomNumber];
-        console.log(randomNumber);
+        let randomIndex;
+        do {
+            randomIndex = Math.floor(Math.random() * enemyBoards.length);
+        } while (randomIndex === lastSelectedIndex); // Ensure new board each time
 
-        setEnemyBoard(selectedBoard);}, [setEnemyBoard]); // every time the board is changed, rerun the useeffect command (runs endlessly the parent component)
-    // make usre random number is genereated when you need it.
+        setLastSelectedIndex(randomIndex);
+        setEnemyBoard(enemyBoards[randomIndex]);
+        console.log(`Enemy board layout ${randomIndex + 1} selected.`);
+    }, [resetTrigger, setEnemyBoard]); // Runs on resetTrigger change
 
-
-    return null; // You can return something here if needed, or leave it empty
+    return null; // No UI needed, just logic
 };
 
 export default SetEnemyBoard;
