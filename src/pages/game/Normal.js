@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SetEnemyBoard from '../../components/SetEnemyBoard';
@@ -13,11 +13,11 @@ function Normal() {
 
     // Ship state
     const [ships, setShips] = useState([
-        { id: 'Carrier 5x1', size: 5, placed: false, positions: [], isHorizontal: true },
-        { id: 'Battleship 4x1', size: 4, placed: false, positions: [], isHorizontal: true },
-        { id: 'Cruiser 3x1', size: 3, placed: false, positions: [], isHorizontal: true },
-        { id: 'Submarine 3x1', size: 3, placed: false, positions: [], isHorizontal: true },
-        { id: 'Destroyer 2x1', size: 2, placed: false, positions: [], isHorizontal: true },
+        {id: 'Carrier 5x1', size: 5, placed: false, positions: [], isHorizontal: true},
+        {id: 'Battleship 4x1', size: 4, placed: false, positions: [], isHorizontal: true},
+        {id: 'Cruiser 3x1', size: 3, placed: false, positions: [], isHorizontal: true},
+        {id: 'Submarine 3x1', size: 3, placed: false, positions: [], isHorizontal: true},
+        {id: 'Destroyer 2x1', size: 2, placed: false, positions: [], isHorizontal: true},
     ]);
 
     // Game state
@@ -82,7 +82,11 @@ function Normal() {
         // Place ship
         ship.placed = true;
         ship.positions = newShipPositions;
-        setShips((prevShips) => prevShips.map(s => s.id === ship.id ? { ...s, placed: true, positions: newShipPositions } : s));
+        setShips((prevShips) => prevShips.map(s => s.id === ship.id ? {
+            ...s,
+            placed: true,
+            positions: newShipPositions
+        } : s));
 
         newShipPositions.forEach(pos => newBoard[pos] = ship.id);
         setPlayerBoard(newBoard);
@@ -116,7 +120,7 @@ function Normal() {
     const handleRotate = (shipId) => {
         setShips((prevShips) => prevShips.map(ship => {
             if (ship.id === shipId && !ship.placed) {
-                return { ...ship, isHorizontal: !ship.isHorizontal };
+                return {...ship, isHorizontal: !ship.isHorizontal};
             }
             return ship;
         }));
@@ -150,6 +154,29 @@ function Normal() {
         setTimeout(enemyAttack, 1000);
     };
 
+    // Enemy attacks Your Board
+    // const enemyAttack = () => {
+    //     if (gameOver) return;
+    //
+    //     let availableCells = playerBoard
+    //         .map((cell, index) => (cell !== "H" && cell !== "M" ? index : null))
+    //         .filter(index => index !== null);
+    //
+    //     if (availableCells.length === 0) return; // No more moves available
+    //
+    //     let attackIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
+    //
+    //     let newBoard = [...playerBoard];
+    //     newBoard[attackIndex] = newBoard[attackIndex] !== null ? "H" : "M";
+    //     setPlayerBoard(newBoard);
+    //
+    //     if (checkGameOver(newBoard)) {
+    //         setGameOver(true);
+    //         return;
+    //     }
+    //
+    //     setIsPlayerTurn(true); // Switch back to player's turn
+    // };
 
     const enemyAttack = () => {
         if (gameOver) return;
@@ -163,7 +190,13 @@ function Normal() {
         let attackIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
 
         let newBoard = [...playerBoard];
-        newBoard[attackIndex] = newBoard[attackIndex] !== null ? "H" : "M";
+        if (newBoard[attackIndex] !== null) {
+            // Ship hit (indicating the ship was present on that position)
+            newBoard[attackIndex] = "H"; // Mark as hit
+        } else {
+            // Miss
+            newBoard[attackIndex] = "M"; // Mark as miss
+        }
         setPlayerBoard(newBoard);
 
         if (checkGameOver(newBoard)) {
@@ -173,7 +206,6 @@ function Normal() {
 
         setIsPlayerTurn(true); // Switch back to player's turn
     };
-
 
 
 
@@ -187,11 +219,11 @@ function Normal() {
         setPlayerBoard(Array(100).fill(null));
         setEnemyBoard(Array(100).fill(null));
         setShips([
-            { id: 'Carrier 5x1', size: 5, placed: false, positions: [], isHorizontal: true },
-            { id: 'Battleship 4x1', size: 4, placed: false, positions: [], isHorizontal: true },
-            { id: 'Cruiser 3x1', size: 3, placed: false, positions: [], isHorizontal: true },
-            { id: 'Submarine 3x1', size: 3, placed: false, positions: [], isHorizontal: true },
-            { id: 'Destroyer 2x1', size: 2, placed: false, positions: [], isHorizontal: true },
+            {id: 'Carrier 5x1', size: 5, placed: false, positions: [], isHorizontal: true},
+            {id: 'Battleship 4x1', size: 4, placed: false, positions: [], isHorizontal: true},
+            {id: 'Cruiser 3x1', size: 3, placed: false, positions: [], isHorizontal: true},
+            {id: 'Submarine 3x1', size: 3, placed: false, positions: [], isHorizontal: true},
+            {id: 'Destroyer 2x1', size: 2, placed: false, positions: [], isHorizontal: true},
         ]);
 
         setTimer(0);  // Reset timer
@@ -206,7 +238,7 @@ function Normal() {
 
     return (
         <div className="play">
-            <Navbar />
+            <Navbar/>
 
             <main className="main">
                 <header>
@@ -267,30 +299,37 @@ function Normal() {
                 <div className="board">
                     <div className="board-headers">
                         {/* Column headers A-J */}
-                        <div className="header-cell"></div> {/* Empty corner cell */}
+                        <div className="header-cell"></div>
+                        {/* Empty corner cell */}
                         {['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].map((label) => (
                             <div key={label} className="header-cell">{label}</div>
                         ))}
                     </div>
                     <div className="grid-container">
                         {/* Row headers 1-10 */}
-                        {Array.from({ length: 10 }).map((_, rowIndex) => (
+                        {Array.from({length: 10}).map((_, rowIndex) => (
                             <div key={rowIndex} className="board-row">
                                 <div className="header-cell">{rowIndex + 1}</div>
-                                {/*{board.slice(rowIndex * 10, (rowIndex + 1) * 10).map((cell, index) => {*/}
                                 {playerBoard.slice(rowIndex * 10, (rowIndex + 1) * 10).map((cell, index) => {
+                                    // Assign shipClass based on the cell's content (ship's ID)
+                                    const shipClass = cell ? getShipClass(cell) : '';  // Using the getShipClass function to get the ship's class name
 
-                                    // Get ship name class if a ship is placed
-                                    const shipClass = cell ? getShipClass(cell) : '';
+                                    let cellClass = '';
+
+                                    if (cell === "H") {
+                                        cellClass = 'hit'; // Add hit class for styling the hit state
+                                    } else if (cell === "M") {
+                                        cellClass = 'miss'; // Add miss class for styling the miss state
+                                    }
 
                                     return (
                                         <div
                                             key={index}
-                                            className={`cell ${shipClass}`} // Apply the ship class here
+                                            className={`cell ${cellClass} ${shipClass}`} // Combine the hit/miss and ship class
                                             onDrop={(e) => handleDrop(e, rowIndex * 10 + index)}
                                             onDragOver={(e) => e.preventDefault()}
                                         >
-                                            {cell ? "S" : ""}
+                                            {cell === "H" ? "✔" : cell === "M" ? "✖" : cell ? "●" : ""}
                                         </div>
                                     );
                                 })}
@@ -310,7 +349,7 @@ function Normal() {
                     </div>
 
                     <div className="grid-container">
-                        {Array.from({ length: 10 }).map((_, rowIndex) => (
+                        {Array.from({length: 10}).map((_, rowIndex) => (
                             <div key={rowIndex} className="board-row">
                                 <div className="header-cell">{rowIndex + 1}</div>
                                 {enemyBoard.slice(rowIndex * 10, (rowIndex + 1) * 10).map((cell, index) => (
@@ -327,17 +366,14 @@ function Normal() {
                     </div>
                 </div>
 
-                <SetEnemyBoard setEnemyBoard={setEnemyBoard} resetTrigger={resetTrigger} />
+                <SetEnemyBoard setEnemyBoard={setEnemyBoard} resetTrigger={resetTrigger}/>
 
                 {gameOver && <p className="game-over">Game Over!</p>}
             </main>
 
-            <Footer />
+            <Footer/>
         </div>
     );
 }
 
 export default Normal;
-
-// TODO -- set board so that player can attack the enemy board only on their turn
-// TODO -- enemy logic to attack player
