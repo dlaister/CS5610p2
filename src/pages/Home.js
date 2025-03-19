@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import Navbar from '../components/Navbar';
 import '../styles/global.css';
 import '../styles/home.css';
 import Footer from '../components/Footer';
-
 
 
 function Home() {
@@ -24,27 +23,33 @@ function Home() {
 
                     <div className="paragraph">
                         <p>
-                            Are you ready to outmaneuver your opponent, unleash devastating attacks, and claim victory on the high seas? Battleship is the ultimate test of strategy, deception, and naval warfare! Whether you're a seasoned captain or a fresh recruit, the thrill of battle awaits.
+                            Are you ready to outmaneuver your opponent, unleash devastating attacks, and claim victory
+                            on the high seas? Battleship is the ultimate test of strategy, deception, and naval warfare!
+                            Whether you're a seasoned captain or a fresh recruit, the thrill of battle awaits.
                         </p>
                         <p>
-                            Hunt Down Enemy Ships – Use your wits and intuition to pinpoint enemy vessels and sink them before they get you!
+                            Hunt Down Enemy Ships – Use your wits and intuition to pinpoint enemy vessels and sink them
+                            before they get you!
                         </p>
                         <p>
-                            Strategic Fleet Placement – Position your ships wisely to outsmart your opponent and keep your fleet afloat.
+                            Strategic Fleet Placement – Position your ships wisely to outsmart your opponent and keep
+                            your fleet afloat.
                         </p>
                         <p>
-                            Engage in Tactical Warfare – Every move counts! Will you strike with precision or set traps to lure your enemy into a devastating ambush?
+                            Engage in Tactical Warfare – Every move counts! Will you strike with precision or set traps
+                            to lure your enemy into a devastating ambush?
                         </p>
                         <p>
                             Play Anytime, Anywhere – Challenge yourself by facing off against formidable AI opponent.
                         </p>
                         <p>
-                            The ocean is vast, but victory is within reach. Do you have what it takes to become the ultimate naval commander?
+                            The ocean is vast, but victory is within reach. Do you have what it takes to become the
+                            ultimate naval commander?
                         </p>
                     </div>
 
                     <p className="FirstBattle">
-                        <Link to="/game" style={{ textDecoration: "none", color: "blue", fontWeight: "bold" }}>
+                        <Link to="/game" style={{textDecoration: "none", color: "blue", fontWeight: "bold"}}>
                             {"<<< Click Here To Start Your First Battle! >>>"}
                         </Link>
                     </p>

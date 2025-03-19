@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import SetEnemyBoard from '../../components/SetEnemyBoard';
@@ -6,7 +6,6 @@ import '../../styles/global.css';
 import '../../styles/normal.css';
 
 function Easy() {
-    // const BOARD_SIZE = 10;
     const [enemyBoard, setEnemyBoard] = useState(Array(100).fill(null));
     const [gameStarted, setGameStarted] = useState(false);
     const [gameOver, setGameOver] = useState(false);
@@ -53,7 +52,7 @@ function Easy() {
 
     return (
         <div className="play">
-            <Navbar />
+            <Navbar/>
             <main className="main">
                 <header>
                     <h1>Battleship Game, Easy Mode</h1>
@@ -84,7 +83,7 @@ function Easy() {
                     </div>
 
                     <div className="grid-container">
-                        {Array.from({ length: 10 }).map((_, rowIndex) => (
+                        {Array.from({length: 10}).map((_, rowIndex) => (
                             <div key={rowIndex} className="board-row">
                                 <div className="header-cell">{rowIndex + 1}</div>
                                 {enemyBoard.slice(rowIndex * 10, (rowIndex + 1) * 10).map((cell, index) => (
@@ -101,11 +100,11 @@ function Easy() {
                     </div>
                 </div>
 
-                <SetEnemyBoard setEnemyBoard={setEnemyBoard} resetTrigger={resetTrigger} />
+                <SetEnemyBoard setEnemyBoard={setEnemyBoard} resetTrigger={resetTrigger}/>
 
                 {gameOver && <p className="game-over">Game Over!</p>}
             </main>
-            <Footer />
+            <Footer/>
         </div>
     );
 

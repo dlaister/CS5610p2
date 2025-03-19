@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 
-const SetEnemyBoard = ({ setEnemyBoard, resetTrigger }) => {
+const SetEnemyBoard = ({setEnemyBoard, resetTrigger}) => {
     // Define different enemy board layouts
     const enemyBoards = [
         [  // Layout 1
@@ -25,7 +25,7 @@ const SetEnemyBoard = ({ setEnemyBoard, resetTrigger }) => {
             null, null, null, null, "D", null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null,
             null, null, null, null, null, null, null, null, null, null,
-            "C", "C", "C", null, null, null,"B", "B", "B", "B"
+            "C", "C", "C", null, null, null, "B", "B", "B", "B"
         ],
         [  // Layout 3
             "B", "B", "B", "B", null, null, null, null, null, null,

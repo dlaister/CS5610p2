@@ -154,30 +154,6 @@ function Normal() {
         setTimeout(enemyAttack, 1000);
     };
 
-    // Enemy attacks Your Board
-    // const enemyAttack = () => {
-    //     if (gameOver) return;
-    //
-    //     let availableCells = playerBoard
-    //         .map((cell, index) => (cell !== "H" && cell !== "M" ? index : null))
-    //         .filter(index => index !== null);
-    //
-    //     if (availableCells.length === 0) return; // No more moves available
-    //
-    //     let attackIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
-    //
-    //     let newBoard = [...playerBoard];
-    //     newBoard[attackIndex] = newBoard[attackIndex] !== null ? "H" : "M";
-    //     setPlayerBoard(newBoard);
-    //
-    //     if (checkGameOver(newBoard)) {
-    //         setGameOver(true);
-    //         return;
-    //     }
-    //
-    //     setIsPlayerTurn(true); // Switch back to player's turn
-    // };
-
     const enemyAttack = () => {
         if (gameOver) return;
 
@@ -206,8 +182,6 @@ function Normal() {
 
         setIsPlayerTurn(true); // Switch back to player's turn
     };
-
-
 
     const [resetTrigger, setResetTrigger] = useState(false);
 
